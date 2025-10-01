@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>JS + CSS Clock</title>
+  <link rel="icon" href="https://fav.farm/🔥" />
+</head>
+<body>
+
+
+    <div class="clock">
+      <div class="clock-face">
+        <div class="hand hour-hand" id="idHourHand"></div>
+        <div class="hand min-hand" id="idMinHand"></div>
+        <div class="hand second-hand" id="idSecondHand"></div>
+      </div>
+    </div>
+
+
+  <style>
+    html {
+      background: #018DED url(/bg.jpg);
+      background-size: cover;
+      font-family: 'helvetica neue';
+      text-align: center;
+      font-size: 10px;
+    }
+
+    body {
+      margin: 0;
+      font-size: 2rem;
+      display: flex;
+      flex: 1;
+      min-height: 100vh;
+      align-items: center;
+    }
+
+    .clock {
+      width: 30rem;
+      height: 30rem;
+      border: 20px solid white;
+      border-radius: 50%;
+      margin: 50px auto;
+      position: relative;
+      padding: 2rem;
+      box-shadow:
+        0 0 0 4px rgba(0,0,0,0.1),
+        inset 0 0 0 3px #EFEFEF,
+        inset 0 0 10px black,
+        0 0 10px rgba(0,0,0,0.2);
+    }
+
+    .clock-face {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      transform: translateY(-3px); /* account for the height of the clock hands */
+    }
+
+    .hand {
+      width: 50%;
+      height: 6px;
+      transform: rotate(90deg);
+      transform-origin: 100%;
+      background: black;
+      position: absolute;
+      transition: all 1000ms;
+      top: 50%;
+    }
+
+    .second-hand {
+      background: gray;
+    }
+
+    .min-hand {
+      background: black;
+    }
+
+    .hour-hand {
+      background: white;
+    }
+
+
+
+  </style>
+
+  <script>
+
+	// Stap 1: Gebruik document.querySelector() of document.getElementById() om de 3 wijzers (.second-hand, .min-hand en .hour-hand) in 3 variabelen op te slaan
+
+	// Stap 2: Gebruik setInterval() om code te schrijven die elke seconde herhaalt wordt. Werk hierin stap 3 tot en met 6 uit.
+
+	// Stap 3: Gebruik Date() om iedere seconden de aantal seconden, minuten en uren opnieuw te bepalen.
+
+	// Stap 4: Bereken de hoek van de seconde wijzer met de volgende berekening: angle = ((seconds / 60) * 360) + 90);
+
+	// Stap 5: Bereken ook de hoek van de minuten en uren wijzer. Bedenk zelf de berekening
+
+	// Stap 6: Gebruik CSS transform en rotate om de hoek van de 3 wijzers te veranderen (zie stap 1) 
+
+    const secondHand = document.querySelector("#idSecondHand");
+    const minHand = document.querySelector("#idMinHand");
+    const hourHand = document.querySelector("#idHourHand");
+
+    setInterval(() => {
+      let now = new Date()
+      let seconds = now.getSeconds()
+      let minutes = now.getMinutes()
+      let hours = now.getHours()
+
+      // Secondewijzer:
+      let secondAngle = ((seconds / 60) * 360) + 90;
+
+      // Minutenwijzer:
+      let minuteAngle = ((minutes / 60) * 360) + 90;
+
+      // Uurwijzer:
+      let hourAngle = ((hours % 12) / 12) * 360 + 90;
+
+      minHand.style = "transform: rotate("+ minuteAngle + "deg);"
+      secondHand.style = "transform: rotate("+ secondAngle + "deg);"
+      hourHand.style = "transform: rotate("+ hourAngle + "deg);"
+      
+      console.warn("Hoi!!!")
+      console.log(hours)
+    }, 1000);
+
+  </script>
+</body>
+</html>
